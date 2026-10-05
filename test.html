@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HNS Services — Property Maintenance & Construction | San Diego, CA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #0B1628;
+      --navy-2:      #142035;
+      --navy-3:      #1E3250;
+      --orange:      #F05A28;
+      --orange-dark: #C84A20;
+      --orange-glow: rgba(240, 90, 40, 0.15);
+      --white:       #FFFFFF;
+      --off-white:   #F8F7F4;
+      --gray-light:  #E8E8E3;
+      --gray-mid:    #8A9BAC;
+      --gray-dark:   #4A5A6B;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+      transition: background 0.35s, padding 0.35s, box-shadow 0.35s;
+    }
+    nav.scrolled {
+      background: rgba(11, 22, 40, 0.97);
+      backdrop-filter: blur(16px);
+      padding: 0.9rem 3rem;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo { text-decoration:none; display:flex; flex-direction:column; line-height:1; }
+    .nav-logo .nm { font-family:'Barlow Condensed',sans-serif; font-size:2.1rem; font-weight:900; color:var(--white); letter-spacing:0.06em; }
+    .nav-logo .ns { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:700; color:var(--orange); letter-spacing:0.3em; text-transform:uppercase; }
+
+    .nav-links { display:flex; align-items:center; gap:2.5rem; list-style:none; }
+    .nav-links a {
+      font-size:0.78rem; font-weight:500; color:rgba(255,255,255,0.65);
+      text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;
+      transition:color 0.2s;
+    }
+    .nav-links a:hover { color:#fff; }
+    .nav-cta {
+      background:var(--orange) !important; color:#fff !important;
+      padding:0.55rem 1.35rem; border-radius:3px; font-weight:600 !important;
+      transition:background 0.2s !important;
+    }
+    .nav-cta:hover { background:var(--orange-dark) !important; }
+
+    /* Mobile menu */
+    .hamburger {
+      display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px;
+      background:none; border:none;
+    }
+    .hamburger span { display:block; width:24px; height:2px; background:#fff; border-radius:2px; transition:all 0.3s; }
+
+    .mobile-menu {
+      display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+      background:var(--navy); z-index:190; flex-direction:column;
+      align-items:center; justify-content:center; gap:2.5rem;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      font-family:'Barlow Condensed',sans-serif; font-size:2.5rem; font-weight:800;
+      color:#fff; text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;
+      transition:color 0.2s;
+    }
+    .mobile-menu a:hover { color:var(--orange); }
+    .mobile-close {
+      position:absolute; top:1.5rem; right:2rem; background:none; border:none;
+      color:#fff; font-size:2rem; cursor:pointer;
+    }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      min-height:100vh;
+      background:var(--navy);
+      display:flex; align-items:center;
+      position:relative; overflow:hidden;
+    }
+
+    /* Blueprint grid */
+    .hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size:70px 70px;
+    }
+
+    /* Diagonal orange slash */
+    .hero-slash {
+      position:absolute; top:-30%; right:-8%;
+      width:55%; height:160%;
+      background:linear-gradient(150deg, transparent 50%, rgba(240,90,40,0.07) 50%);
+      pointer-events:none;
+    }
+
+    /* Floating circle accent */
+    .hero-circle {
+      position:absolute; bottom:-15%; right:10%;
+      width:500px; height:500px;
+      border-radius:50%;
+      border:1px solid rgba(240,90,40,0.12);
+      pointer-events:none;
+    }
+    .hero-circle::before {
+      content:''; position:absolute; inset:40px;
+      border-radius:50%; border:1px solid rgba(240,90,40,0.08);
+    }
+
+    .hero-inner {
+      position:relative; z-index:2;
+      padding:8rem 3rem 7rem;
+      max-width:1280px; margin:0 auto; width:100%;
+    }
+
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:1rem;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:0.9rem; font-weight:700; color:var(--orange);
+      letter-spacing:0.35em; text-transform:uppercase;
+      margin-bottom:1.75rem;
+    }
+    .hero-eyebrow::before {
+      content:''; display:block;
+      width:36px; height:2px; background:var(--orange);
+    }
+
+    .hero-headline {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900;
+      line-height:0.88;
+      margin-bottom:2rem;
+    }
+    .hl-1 {
+      display:block;
+      font-size:clamp(4.5rem,12vw,9.5rem);
+      color:var(--white);
+      letter-spacing:-0.02em;
+    }
+    .hl-2 {
+      display:block;
+      font-size:clamp(4.5rem,12vw,9.5rem);
+      color:transparent;
+      -webkit-text-stroke:2px rgba(255,255,255,0.85);
+      letter-spacing:-0.02em;
+    }
+    .hl-3 {
+      display:block;
+      font-size:clamp(2rem,4.5vw,4rem);
+      color:var(--orange);
+      letter-spacing:0.04em;
+      margin-top:0.6rem;
+    }
+
+    .hero-body {
+      font-size:1rem; color:var(--gray-mid); max-width:460px;
+      line-height:1.75; margin-bottom:2.75rem; font-weight:400;
+    }
+
+    .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
+
+    .btn {
+      font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600;
+      letter-spacing:0.08em; text-transform:uppercase;
+      padding:0.9rem 2rem; border-radius:3px;
+      text-decoration:none; display:inline-block; transition:all 0.22s;
+    }
+    .btn-primary { background:var(--orange); color:#fff; border:none; cursor:pointer; }
+    .btn-primary:hover { background:var(--orange-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(240,90,40,0.35); }
+    .btn-ghost { border:1.5px solid rgba(255,255,255,0.25); color:#fff; }
+    .btn-ghost:hover { border-color:#fff; background:rgba(255,255,255,0.07); }
+    .btn-dark { background:var(--navy); color:#fff; border:none; cursor:pointer; }
+    .btn-dark:hover { background:var(--navy-2); }
+
+    /* Hero info strip */
+    .hero-strip {
+      position:absolute; bottom:0; left:0; right:0; z-index:2;
+      background:rgba(255,255,255,0.035);
+      border-top:1px solid rgba(255,255,255,0.07);
+      padding:1.1rem 3rem;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    }
+    .strip-items { display:flex; gap:2.5rem; flex-wrap:wrap; }
+    .strip-item { display:flex; align-items:center; gap:0.65rem; }
+    .strip-dot { width:5px; height:5px; background:var(--orange); border-radius:50%; flex-shrink:0; }
+    .strip-item span { font-size:0.75rem; color:rgba(255,255,255,0.45); font-weight:400; letter-spacing:0.04em; }
+    .strip-phone {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:1.5rem; font-weight:700; color:#fff;
+      text-decoration:none; letter-spacing:0.05em; transition:color 0.2s;
+    }
+    .strip-phone:hover { color:var(--orange); }
+
+    /* ─────────── TICKER ─────────── */
+    .ticker { background:var(--orange); padding:0.8rem 0; overflow:hidden; white-space:nowrap; }
+    .ticker-track { display:inline-flex; animation:scroll-left 35s linear infinite; }
+    .tk { font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; color:#fff; letter-spacing:0.25em; text-transform:uppercase; padding:0 1.5rem; opacity:0.95; }
+    .tk-sep { color:rgba(255,255,255,0.35); padding:0 0.5rem; font-size:0.7rem; }
+    @keyframes scroll-left { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+
+    /* ─────────── STATS ─────────── */
+    .stats { background:var(--off-white); padding:5.5rem 3rem; }
+    .stats-inner {
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(4,1fr); gap:2rem;
+    }
+    .stat-box { text-align:center; }
+    .stat-num {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:clamp(3.5rem,5vw,5.5rem);
+      font-weight:900; color:var(--navy); line-height:1;
+      letter-spacing:-0.03em; display:block;
+    }
+    .stat-num em { font-style:normal; color:var(--orange); }
+    .stat-lbl { font-size:0.75rem; font-weight:600; color:var(--gray-mid); letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; display:block; }
+
+    /* ─────────── SERVICES ─────────── */
+    .services { background:var(--white); padding:7rem 3rem; }
+    .services-inner { max-width:1280px; margin:0 auto; }
+
+    .section-eyebrow {
+      display:flex; align-items:center; gap:0.75rem;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:0.8rem; font-weight:700; color:var(--orange);
+      letter-spacing:0.35em; text-transform:uppercase; margin-bottom:1rem;
+    }
+    .section-eyebrow::before { content:''; display:block; width:28px; height:2px; background:var(--orange); }
+    .section-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:clamp(2.5rem,4.5vw,4rem); font-weight:900;
+      color:var(--navy); line-height:0.95; letter-spacing:-0.02em;
+    }
+    .section-title.light { color:#fff; }
+
+    .sh { margin-bottom:4rem; }
+    .sh-desc { font-size:0.95rem; color:var(--gray-dark); line-height:1.7; max-width:500px; margin-top:1rem; }
+
+    .svc-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:3px; background:var(--gray-light);
+    }
+
+    .svc-card {
+      background:var(--white); padding:2.5rem 2.25rem;
+      position:relative; overflow:hidden; cursor:default;
+      transition:background 0.35s;
+    }
+    .svc-card::after {
+      content:''; position:absolute; bottom:0; left:0; right:100%; height:3px;
+      background:var(--orange); transition:right 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .svc-card:hover { background:var(--navy); }
+    .svc-card:hover::after { right:0; }
+
+    .svc-bg-num {
+      position:absolute; top:0.75rem; right:1rem;
+      font-family:'Barlow Condensed',sans-serif; font-size:6rem; font-weight:900;
+      color:var(--gray-light); line-height:1; letter-spacing:-0.05em;
+      pointer-events:none; transition:color 0.35s; user-select:none;
+    }
+    .svc-card:hover .svc-bg-num { color:rgba(255,255,255,0.05); }
+
+    .svc-icon { font-size:1.8rem; margin-bottom:1.25rem; display:block; }
+    .svc-name {
+      font-family:'Barlow Condensed',sans-serif; font-size:1.55rem; font-weight:800;
+      color:var(--navy); text-transform:uppercase; letter-spacing:0.03em;
+      line-height:1.05; margin-bottom:0.85rem; transition:color 0.35s;
+    }
+    .svc-card:hover .svc-name { color:#fff; }
+    .svc-desc { font-size:0.83rem; color:var(--gray-dark); line-height:1.7; transition:color 0.35s; }
+    .svc-card:hover .svc-desc { color:var(--gray-mid); }
+    .svc-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.25rem; }
+    .tag {
+      font-size:0.67rem; font-weight:700; color:var(--orange);
+      border:1px solid rgba(240,90,40,0.4); padding:0.2rem 0.55rem;
+      border-radius:2px; letter-spacing:0.08em; text-transform:uppercase;
+      transition:border-color 0.35s;
+    }
+    .svc-card:hover .tag { border-color:rgba(240,90,40,0.5); }
+
+    /* ─────────── ABOUT ─────────── */
+    .about { background:var(--navy); padding:8rem 3rem; position:relative; overflow:hidden; }
+    .about-watermark {
+      position:absolute; right:-3rem; bottom:-5rem;
+      font-family:'Barlow Condensed',sans-serif; font-size:22rem; font-weight:900;
+      color:rgba(255,255,255,0.022); line-height:1; letter-spacing:-0.05em;
+      pointer-events:none; user-select:none;
+    }
+    .about-inner {
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:center;
+    }
+    .about-text .section-eyebrow { color:var(--orange); }
+    .about-text .section-eyebrow::before { background:var(--orange); }
+    .about-body { font-size:0.97rem; color:var(--gray-mid); line-height:1.85; margin:1.5rem 0 2.5rem; }
+    .about-body strong { color:#fff; font-weight:500; }
+    .about-feats { display:grid; grid-template-columns:1fr 1fr; gap:1.75rem; }
+    .feat {
+      border-left:2px solid var(--orange); padding-left:1rem;
+    }
+    .feat-title { font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; font-weight:700; color:#fff; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.3rem; }
+    .feat-text { font-size:0.78rem; color:var(--gray-mid); line-height:1.55; }
+
+    .cred-stack { display:flex; flex-direction:column; gap:1.25rem; }
+    .cred {
+      background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+      border-radius:5px; padding:1.75rem;
+      display:flex; gap:1.25rem; align-items:flex-start;
+      transition:border-color 0.25s, background 0.25s;
+    }
+    .cred:hover { border-color:rgba(240,90,40,0.35); background:rgba(240,90,40,0.04); }
+    .cred-ico { font-size:1.4rem; flex-shrink:0; margin-top:0.1rem; }
+    .cred-title { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; color:#fff; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.3rem; }
+    .cred-text { font-size:0.8rem; color:var(--gray-mid); line-height:1.55; }
+
+    /* ─────────── EMERGENCY BANNER ─────────── */
+    .emerg { background:var(--orange); padding:3rem 3rem; }
+    .emerg-inner {
+      max-width:1280px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap;
+    }
+    .emerg-left { display:flex; align-items:center; gap:1.5rem; }
+    .emerg-badge {
+      width:56px; height:56px; border-radius:50%;
+      background:rgba(0,0,0,0.15);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem; flex-shrink:0;
+    }
+    .emerg-text h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.85rem; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.04em; }
+    .emerg-text p { font-size:0.88rem; color:rgba(255,255,255,0.8); margin-top:0.2rem; }
+    .btn-emerg {
+      font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600;
+      letter-spacing:0.08em; text-transform:uppercase;
+      padding:0.85rem 2rem; border-radius:3px;
+      border:1.5px solid rgba(255,255,255,0.5); color:#fff;
+      text-decoration:none; transition:all 0.22s; white-space:nowrap;
+    }
+    .btn-emerg:hover { border-color:#fff; background:rgba(255,255,255,0.12); }
+
+    /* ─────────── CONTACT ─────────── */
+    .contact { background:var(--off-white); padding:8rem 3rem; }
+    .contact-inner {
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start;
+    }
+    .contact-info .section-title { margin:1rem 0 1.5rem; }
+    .contact-info > p { font-size:0.95rem; color:var(--gray-dark); line-height:1.75; margin-bottom:2rem; }
+    .contact-phone {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:clamp(2.2rem,4vw,3.2rem); font-weight:900;
+      color:var(--navy); text-decoration:none;
+      display:block; letter-spacing:-0.02em; line-height:1; margin-bottom:0.5rem;
+      transition:color 0.2s;
+    }
+    .contact-phone:hover { color:var(--orange); }
+    .contact-email { font-size:0.9rem; color:var(--gray-dark); text-decoration:none; transition:color 0.2s; }
+    .contact-email:hover { color:var(--orange); }
+
+    /* Form */
+    .form-box {
+      background:#fff; border-radius:6px; padding:2.75rem;
+      box-shadow:0 6px 40px rgba(0,0,0,0.07);
+    }
+    .form-heading {
+      font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:800;
+      color:var(--navy); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2rem;
+    }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .fg { margin-bottom:1.2rem; }
+    .fg label {
+      display:block; font-size:0.7rem; font-weight:600; color:var(--gray-dark);
+      letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.4rem;
+    }
+    .fg input, .fg select, .fg textarea {
+      width:100%; padding:0.8rem 1rem;
+      border:1.5px solid var(--gray-light); border-radius:3px;
+      font-family:'DM Sans',sans-serif; font-size:0.88rem;
+      color:var(--navy); background:#fff;
+      transition:border-color 0.2s; outline:none;
+      -webkit-appearance:none; appearance:none;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--orange); }
+    .fg textarea { height:105px; resize:vertical; }
+    .form-submit {
+      width:100%; padding:1rem; border-radius:3px;
+      background:var(--orange); color:#fff; border:none; cursor:pointer;
+      font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600;
+      letter-spacing:0.1em; text-transform:uppercase;
+      transition:background 0.2s, box-shadow 0.2s;
+    }
+    .form-submit:hover { background:var(--orange-dark); box-shadow:0 8px 24px rgba(240,90,40,0.3); }
+
+    /* ─────────── VENDORS ─────────── */
+    .vendors { background:#fff; padding:2.75rem 3rem; border-top:1px solid var(--gray-light); }
+    .vendors-inner { max-width:1280px; margin:0 auto; display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap; }
+    .vendors-lbl { font-size:0.7rem; font-weight:700; color:var(--gray-mid); letter-spacing:0.25em; text-transform:uppercase; white-space:nowrap; }
+    .vendors-rule { height:1px; background:var(--gray-light); flex:0 0 40px; }
+    .vendors-logos { display:flex; gap:2.5rem; align-items:center; flex-wrap:wrap; }
+    .vendor {
+      font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700;
+      color:var(--gray-mid); text-transform:uppercase; letter-spacing:0.12em;
+      text-decoration:none; transition:color 0.2s;
+    }
+    .vendor:hover { color:var(--navy); }
+
+    /* ─────────── FOOTER ─────────── */
+    footer { background:var(--navy); padding:5rem 3rem 2.5rem; }
+    .footer-top {
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:2.5fr 1fr 1fr 1.2fr; gap:3.5rem; margin-bottom:4rem;
+    }
+    .f-brand .fn { font-family:'Barlow Condensed',sans-serif; font-size:2.4rem; font-weight:900; color:#fff; letter-spacing:0.07em; }
+    .f-brand .fs { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:700; color:var(--orange); letter-spacing:0.3em; text-transform:uppercase; }
+    .f-brand p { font-size:0.83rem; color:var(--gray-mid); line-height:1.7; margin-top:1rem; max-width:260px; }
+    .f-lic { font-size:0.72rem; color:rgba(255,255,255,0.25); margin-top:1.25rem; }
+    .f-col h4 { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; color:#fff; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:1.4rem; }
+    .f-col ul { list-style:none; }
+    .f-col ul li { margin-bottom:0.65rem; }
+    .f-col ul a { font-size:0.83rem; color:var(--gray-mid); text-decoration:none; transition:color 0.2s; }
+    .f-col ul a:hover { color:#fff; }
+    .footer-bot {
+      max-width:1280px; margin:0 auto;
+      padding-top:2rem; border-top:1px solid rgba(255,255,255,0.07);
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    }
+    .footer-bot p { font-size:0.77rem; color:rgba(255,255,255,0.22); }
+    .soc { display:flex; gap:0.75rem; }
+    .soc a {
+      width:36px; height:36px; border-radius:50%;
+      border:1px solid rgba(255,255,255,0.1);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.8rem; color:var(--gray-mid); text-decoration:none;
+      font-weight:700; transition:all 0.2s;
+    }
+    .soc a:hover { border-color:var(--orange); color:var(--orange); }
+
+    /* ─────────── SCROLL ANIMATIONS ─────────── */
+    .fade-up { opacity:0; transform:translateY(32px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.vis { opacity:1; transform:translateY(0); }
+    .fade-up:nth-child(2) { transition-delay:0.1s; }
+    .fade-up:nth-child(3) { transition-delay:0.2s; }
+    .fade-up:nth-child(4) { transition-delay:0.3s; }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width:1024px) {
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .svc-grid { grid-template-columns:repeat(2,1fr); }
+      .about-inner, .contact-inner { grid-template-columns:1fr; gap:3.5rem; }
+      .footer-top { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:768px) {
+      nav { padding:1.1rem 1.5rem; }
+      nav.scrolled { padding:0.8rem 1.5rem; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .hero-inner { padding:7rem 1.5rem 6rem; }
+      .hero-strip { display:none; }
+      .svc-grid { grid-template-columns:1fr; }
+      .form-row { grid-template-columns:1fr; }
+      .emerg-inner { flex-direction:column; text-align:center; }
+      .emerg-left { flex-direction:column; }
+      .footer-top { grid-template-columns:1fr; gap:2.5rem; }
+      .footer-bot { flex-direction:column; text-align:center; }
+      .vendors-inner { flex-wrap:wrap; }
+      .stats, .services, .about, .contact { padding-left:1.5rem; padding-right:1.5rem; }
+      .about-feats { grid-template-columns:1fr; }
+    }
+
+    /* Form success state */
+    .form-success {
+      display:none; text-align:center; padding:2.5rem 0;
+    }
+    .form-success .check { font-size:3rem; margin-bottom:1rem; }
+    .form-success h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.75rem; font-weight:800; color:var(--navy); text-transform:uppercase; }
+    .form-success p { font-size:0.9rem; color:var(--gray-dark); margin-top:0.5rem; }
+
+  </style>
+</head>
+<body>
+
+<!-- ──────────── NAV ──────────── -->
+<nav id="nav">
+  <a href="#home" class="nav-logo" aria-label="HNS Services Home">
+    <span class="nm">HNS</span>
+    <span class="ns">Services</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Free Estimate</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#contact" onclick="closeMobile()">Projects</a>
+  <a href="#contact" onclick="closeMobile()" style="color:var(--orange)">Free Estimate</a>
+</div>
+
+<!-- ──────────── HERO ──────────── -->
+<section class="hero" id="home">
+  <div class="hero-slash" aria-hidden="true"></div>
+  <div class="hero-circle" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">San Diego, California</p>
+    <h1 class="hero-headline">
+      <span class="hl-1">PROPERTY</span>
+      <span class="hl-2">MAINTENANCE</span>
+      <span class="hl-3">& Construction Experts</span>
+    </h1>
+    <p class="hero-body">
+      Multi-family residential, HOA &amp; commercial property maintenance, repair, and janitorial services — licensed, bonded, insured, and available 24/7.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Get a Free Estimate</a>
+      <a href="#services" class="btn btn-ghost">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="strip-items">
+      <div class="strip-item"><div class="strip-dot"></div><span>24/7 Emergency Response</span></div>
+      <div class="strip-item"><div class="strip-dot"></div><span>$5M Liability Insurance</span></div>
+      <div class="strip-item"><div class="strip-dot"></div><span>CSLB Lic. "B" #1047601</span></div>
+      <div class="strip-item"><div class="strip-dot"></div><span>Workman's Comp &amp; Auto Covered</span></div>
+    </div>
+    <a href="tel:7604978699" class="strip-phone">760.497.8699</a>
+  </div>
+</section>
+
+<!-- ──────────── TICKER ──────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="tk">Carpentry</span><span class="tk-sep">◆</span>
+    <span class="tk">Roofing</span><span class="tk-sep">◆</span>
+    <span class="tk">Janitorial</span><span class="tk-sep">◆</span>
+    <span class="tk">Electrical &amp; Lighting</span><span class="tk-sep">◆</span>
+    <span class="tk">Painting &amp; Texture</span><span class="tk-sep">◆</span>
+    <span class="tk">Plumbing</span><span class="tk-sep">◆</span>
+    <span class="tk">Concrete</span><span class="tk-sep">◆</span>
+    <span class="tk">Waterproofing</span><span class="tk-sep">◆</span>
+    <span class="tk">Emergency Repairs</span><span class="tk-sep">◆</span>
+    <span class="tk">Stucco &amp; Siding</span><span class="tk-sep">◆</span>
+    <span class="tk">Power Washing</span><span class="tk-sep">◆</span>
+    <span class="tk">Graffiti Removal</span><span class="tk-sep">◆</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tk">Carpentry</span><span class="tk-sep">◆</span>
+    <span class="tk">Roofing</span><span class="tk-sep">◆</span>
+    <span class="tk">Janitorial</span><span class="tk-sep">◆</span>
+    <span class="tk">Electrical &amp; Lighting</span><span class="tk-sep">◆</span>
+    <span class="tk">Painting &amp; Texture</span><span class="tk-sep">◆</span>
+    <span class="tk">Plumbing</span><span class="tk-sep">◆</span>
+    <span class="tk">Concrete</span><span class="tk-sep">◆</span>
+    <span class="tk">Waterproofing</span><span class="tk-sep">◆</span>
+    <span class="tk">Emergency Repairs</span><span class="tk-sep">◆</span>
+    <span class="tk">Stucco &amp; Siding</span><span class="tk-sep">◆</span>
+    <span class="tk">Power Washing</span><span class="tk-sep">◆</span>
+    <span class="tk">Graffiti Removal</span><span class="tk-sep">◆</span>
+  </div>
+</div>
+
+<!-- ──────────── STATS ──────────── -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat-box fade-up">
+      <span class="stat-num">24<em>/7</em></span>
+      <span class="stat-lbl">Emergency Response</span>
+    </div>
+    <div class="stat-box fade-up">
+      <span class="stat-num">$5<em>M</em></span>
+      <span class="stat-lbl">Liability Insurance</span>
+    </div>
+    <div class="stat-box fade-up">
+      <span class="stat-num">500<em>+</em></span>
+      <span class="stat-lbl">Projects Completed</span>
+    </div>
+    <div class="stat-box fade-up">
+      <span class="stat-num">100<em>+</em></span>
+      <span class="stat-lbl">Services Offered</span>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── SERVICES ──────────── -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="sh fade-up">
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-title">FULL-SPECTRUM<br>PROPERTY SERVICES</h2>
+      <p class="sh-desc">From capital improvement projects to routine maintenance — we provide the staff, equipment, and expertise to handle it all under one roof.</p>
+    </div>
+    <div class="svc-grid">
+
+      <div class="svc-card fade-up">
+        <span class="svc-bg-num">01</span>
+        <span class="svc-icon">🏗️</span>
+        <h3 class="svc-name">Construction Services</h3>
+        <p class="svc-desc">Exterior trim, carports, stairs, decks, planter boxes, concrete overlays, slab repairs, doors &amp; windows, locksmith, and re-key services.</p>
+        <div class="svc-tags">
+          <span class="tag">Carpentry</span><span class="tag">Concrete</span><span class="tag">Doors &amp; Windows</span>
+        </div>
+      </div>
+
+      <div class="svc-card fade-up">
+        <span class="svc-bg-num">02</span>
+        <span class="svc-icon">🏢</span>
+        <h3 class="svc-name">Exterior Maintenance</h3>
+        <p class="svc-desc">Painting, texture, stucco repair, graffiti removal, power washing, parking striping, lamp poles, mailbox &amp; monument maintenance.</p>
+        <div class="svc-tags">
+          <span class="tag">Painting</span><span class="tag">Stucco</span><span class="tag">Power Washing</span>
+        </div>
+      </div>
+
+      <div class="svc-card fade-up">
+        <span class="svc-bg-num">03</span>
+        <span class="svc-icon">💡</span>
+        <h3 class="svc-name">Electrical &amp; Lighting</h3>
+        <p class="svc-desc">High-reach lighting, landscape &amp; carport lighting, LED retrofits, tennis court &amp; holiday lighting, conservation consulting, low voltage systems.</p>
+        <div class="svc-tags">
+          <span class="tag">LED Retrofit</span><span class="tag">Landscape</span><span class="tag">Holiday Lighting</span>
+        </div>
+      </div>
+
+      <div class="svc-card fade-up">
+        <span class="svc-bg-num">04</span>
+        <span class="svc-icon">🛠️</span>
+        <h3 class="svc-name">Interior Repairs</h3>
+        <p class="svc-desc">Plumbing, electrical, cabinets, carpet &amp; flooring replacement, tile &amp; wood, drywall &amp; painting, appliances, and water mitigation services.</p>
+        <div class="svc-tags">
+          <span class="tag">Plumbing</span><span class="tag">Flooring</span><span class="tag">Water Mitigation</span>
+        </div>
+      </div>
+
+      <div class="svc-card fade-up">
+        <span class="svc-bg-num">05</span>
+        <span class="svc-icon">🏠</span>
+        <h3 class="svc-name">Roofing &amp; Waterproofing</h3>
+        <p class="svc-desc">Complete roof replacement &amp; repair, inspections, annual programs, gutters, deck/patio/planter waterproofing, drain cleaning &amp; jetting, re-lining.</p>
+        <div class="svc-tags">
+          <span class="tag">Roof Replacement</span><span class="tag">Waterproofing</span><span class="tag">Drainage</span>
+        </div>
+      </div>
+
+      <div class="svc-card fade-up">
+        <span class="svc-bg-num">06</span>
+        <span class="svc-icon">🧹</span>
+        <h3 class="svc-name">Janitorial Services</h3>
+        <p class="svc-desc">Daily porter services, fitness center &amp; gym sanitizing, common area cleaning, trash enclosures, construction clean-up, unit make-ready, special events.</p>
+        <div class="svc-tags">
+          <span class="tag">Porter Services</span><span class="tag">Sanitizing</span><span class="tag">Event Setup</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── ABOUT ──────────── -->
+<section class="about" id="about">
+  <div class="about-watermark" aria-hidden="true">HNS</div>
+  <div class="about-inner">
+    <div class="about-text fade-up">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2 class="section-title light">BUILT BY PEOPLE<br>WHO MANAGE PROPERTIES</h2>
+      <p class="about-body">
+        HNS Services was <strong>founded by veterans of HOA and multi-family residential management</strong> — people who've spent decades living the challenges your properties face. That insider perspective means faster diagnosis, smarter solutions, and fewer surprises on your invoice.
+        <br><br>
+        From a single leaky faucet to a complete exterior remodel, <strong>we provide the staff, equipment, and skills</strong> to keep your properties running and your residents happy — all under one reliable contractor.
+      </p>
+      <div class="about-feats">
+        <div class="feat">
+          <div class="feat-title">HOA Expertise</div>
+          <div class="feat-text">Decades on boards and in management — we understand your challenges from the inside.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-title">Certified Contractors</div>
+          <div class="feat-text">Manufacturer-trained installers with all industry-leading products on hand.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-title">One-Vendor Solution</div>
+          <div class="feat-text">No juggling multiple contractors — HNS handles maintenance, construction, and janitorial.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-title">Board Representation</div>
+          <div class="feat-text">We attend board meetings to keep your management team fully informed at every step.</div>
+        </div>
+      </div>
+    </div>
+    <div class="cred-stack fade-up">
+      <div class="cred">
+        <div class="cred-ico">📋</div>
+        <div>
+          <div class="cred-title">Licensed General Contractor</div>
+          <div class="cred-text">California State License Board (CSLB) — License "B" #1047601 — in good standing with full compliance.</div>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico">🛡️</div>
+        <div>
+          <div class="cred-title">$5M Liability Insurance</div>
+          <div class="cred-text">Full liability coverage plus Workman's Compensation and Automobile insurance for complete peace of mind.</div>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico">🔒</div>
+        <div>
+          <div class="cred-title">Bonded &amp; Trusted</div>
+          <div class="cred-text">Dozens of HOAs and property management firms across San Diego County rely on HNS every single day.</div>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico">⚡</div>
+        <div>
+          <div class="cred-title">24/7 Emergency Service</div>
+          <div class="cred-text">Unexpected failures can't wait until Monday. Our emergency team responds around the clock, year-round.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── EMERGENCY BANNER ──────────── -->
+<section class="emerg">
+  <div class="emerg-inner">
+    <div class="emerg-left">
+      <div class="emerg-badge">⚡</div>
+      <div class="emerg-text">
+        <h3>24/7 Emergency Maintenance</h3>
+        <p>Property emergency? Our team is standing by around the clock — every day of the year.</p>
+      </div>
+    </div>
+    <a href="tel:7604978699" class="btn-emerg">Call 760.497.8699</a>
+  </div>
+</section>
+
+<!-- ──────────── CONTACT ──────────── -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info fade-up">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2 class="section-title">START WITH<br>A FREE ESTIMATE</h2>
+      <p>Tell us about your property and what you need. We'll schedule a free on-site evaluation and give you a clear, honest quote — no obligation, no surprises.</p>
+      <a href="tel:7604978699" class="contact-phone">760.497.8699</a>
+      <a href="mailto:info@hnsmaintenance.com" class="contact-email">info@hnsmaintenance.com</a>
+    </div>
+    <div class="form-box fade-up">
+      <div id="formWrap">
+        <div class="form-heading">Request a Free Estimate</div>
+        <div class="form-row">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="John"></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="john@propertyco.com"></div>
+        <div class="fg"><label>Phone Number</label><input type="tel" placeholder="(619) 000-0000"></div>
+        <div class="fg">
+          <label>Service Needed</label>
+          <select>
+            <option value="">Select a service…</option>
+            <option>Construction &amp; Carpentry</option>
+            <option>Exterior Maintenance</option>
+            <option>Electrical &amp; Lighting</option>
+            <option>Interior Repairs</option>
+            <option>Roofing &amp; Waterproofing</option>
+            <option>Janitorial Services</option>
+            <option>Emergency Repair</option>
+            <option>Annual Inspection / Assessment</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Property Description</label><textarea placeholder="Tell us about your property and what you need…"></textarea></div>
+        <button class="form-submit" id="formSubmit">Send Request →</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="check">✅</div>
+        <h3>Request Sent!</h3>
+        <p>Thank you! We'll be in touch within one business day to schedule your free estimate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── VENDORS ──────────── -->
+<section class="vendors">
+  <div class="vendors-inner">
+    <span class="vendors-lbl">Trusted Partners</span>
+    <div class="vendors-rule"></div>
+    <div class="vendors-logos">
+      <a href="http://dixieline.com" class="vendor" target="_blank" rel="noopener">Dixie Line</a>
+      <a href="https://www.beaconroofingsupply.com/" class="vendor" target="_blank" rel="noopener">Beacon Roofing Supply</a>
+      <a href="https://www.lowes.com/" class="vendor" target="_blank" rel="noopener">Lowe's</a>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── FOOTER ──────────── -->
+<footer>
+  <div class="footer-top">
+    <div class="f-brand">
+      <div class="fn">HNS</div>
+      <div class="fs">Services, Inc.</div>
+      <p>San Diego's trusted partner for multi-family and HOA property maintenance, construction, and janitorial services.</p>
+      <div class="f-lic">CSLB License "B" #1047601 · Licensed · Bonded · Insured · Est. 2019</div>
+    </div>
+    <div class="f-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Construction</a></li>
+        <li><a href="#services">Exterior Maintenance</a></li>
+        <li><a href="#services">Electrical &amp; Lighting</a></li>
+        <li><a href="#services">Interior Repairs</a></li>
+        <li><a href="#services">Roofing &amp; Waterproofing</a></li>
+        <li><a href="#services">Janitorial</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About HNS</a></li>
+        <li><a href="#services">All Services</a></li>
+        <li><a href="#contact">Free Estimate</a></li>
+        <li><a href="tel:7604978699">Emergency Line</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:7604978699">760.497.8699</a></li>
+        <li><a href="mailto:info@hnsmaintenance.com">info@hnsmaintenance.com</a></li>
+        <li><a href="#home">San Diego, CA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <p>© 2024 HNS Services, Inc. All rights reserved. Proudly serving San Diego County.</p>
+    <div class="soc">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="LinkedIn">in</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // ── Scroll-reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('vis');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── Form submit
+  document.getElementById('formSubmit').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('#formWrap input, #formWrap select');
+    let hasFirst = false;
+    inputs.forEach(i => { if (i.value.trim()) hasFirst = true; });
+    if (!hasFirst) {
+      alert('Please fill in at least your name and contact info.');
+      return;
+    }
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+
+  // ── Smooth anchor handling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
